@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Title one",
+    "content": "Content one",
+    "slug": "cnt-1"
+  },
+  {
+    "id": 2,
+    "title": "Title two",
+    "content": "Content two",
+    "slug": "cnt-2"
+  },
+  {
+    "id": 3,
+    "title": "Title three",
+    "content": "Content three",
+    "slug": "cnt-3"
+  }
+]
