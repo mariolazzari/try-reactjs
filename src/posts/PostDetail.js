@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 class PostDetail extends Component {
   state = {
-    showContent: true
+    showContent: true,
+    postItem: null
   };
 
   toggleShowContent = e => {
@@ -10,16 +11,41 @@ class PostDetail extends Component {
     this.setState({ showContent: !this.state.showContent });
   };
 
+  handleRemoveContent = () => {
+    if (this.props.didHandleRemove) {
+      this.props.didHandleRemove(this.state.postItem);
+    }
+  };
+
+  titleWasClciked = () => {
+    let newPost = this.state.postItem;
+    newPost.title = "New title";
+    this.setState({ postItem: newPost });
+
+    if (this.props.onClick !== undefined) {
+      this.props.onClick(newPost);
+    }
+  };
+
+  componentDidMount = () => this.setState({ postItem: this.props.post });
+
   render() {
-    const { post, onClick } = this.props;
-    const { showContent } = this.state;
+    const { showContent, postItem } = this.state;
+
     return (
-      <div>
-        <h1 onClick={e => onClick(e.target.innerHTML)}>{post.title}</h1>
-        <h2>{post.slug}</h2>
-        {showContent && <p>{post.content}</p>}
-        <button onClick={this.toggleShowContent}>Toggle {post.title}</button>
-      </div>
+      <Fragment>
+        {postItem && (
+          <Fragment>
+            <h1 onClick={() => this.titleWasClciked()}>{postItem.title}</h1>
+            <h2>{postItem.slug}</h2>
+            {showContent && <p>{postItem.content}</p>}
+            <button onClick={this.toggleShowContent}>
+              Toggle {postItem.title}
+            </button>
+            <button onClick={this.handleRemoveContent}>Remove</button>
+          </Fragment>
+        )}
+      </Fragment>
     );
   }
 }
