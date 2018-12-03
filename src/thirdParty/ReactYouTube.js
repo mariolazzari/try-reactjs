@@ -12,9 +12,9 @@ export default class ReactYouTube extends Component {
 
   videoOnReady = event => {
     // access to player in all event handlers via event.target
-    //event.target.pauseVideo();
     this.setState({ player: event.target });
     event.target.seekTo(50);
+    event.target.pauseVideo();
   };
 
   componentWillUnmount() {
